@@ -1,8 +1,59 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+:root,
+[data-theme="light"] {
+  /* дефолт: мята (до загрузки JS) */
+  --accent-glow: rgba(52, 211, 153, 0.14);
+  --accent-gradient-from: #a7f3d0;
+  --accent-gradient-to: #34d399;
+  --accent-shadow: rgba(16, 185, 129, 0.28);
+  --accent-link: #059669;
+  --accent-label: #047857;
+  --accent-eaten-from: rgba(167, 243, 208, 0.85);
+  --accent-eaten-to: rgba(209, 250, 229, 0.35);
+  --accent-eaten-border: rgba(52, 211, 153, 0.35);
+  --accent-eaten-text: #047857;
+  --accent-burned-from: rgba(16, 185, 129, 0.22);
+  --accent-burned-to: rgba(5, 150, 105, 0.08);
+  --accent-burned-border: rgba(5, 150, 105, 0.4);
+  --accent-burned-text: #065f46;
+  --accent-balance-from: rgba(110, 231, 183, 0.45);
+  --accent-balance-to: rgba(52, 211, 153, 0.12);
+  --accent-balance-border: rgba(52, 211, 153, 0.3);
+  --accent-focus: #34d399;
+  --accent-focus-ring: rgba(52, 211, 153, 0.25);
+  --accent-active-bg: rgba(52, 211, 153, 0.15);
+  --accent-active-text: #064e3b;
+  --accent-stat-bg: #d1fae5;
+  --accent-stat-border: #6ee7b7;
+
+  --background: #f4f7fb;
+  --foreground: #0f172a;
+  --surface: #ffffff;
+  --muted: #e8eef5;
+  --muted-fg: #64748b;
+  --border: #dbe4ef;
+  --bg-gradient: radial-gradient(
+      ellipse 80% 50% at 50% -20%,
+      var(--accent-glow, rgba(52, 211, 153, 0.12)),
+      transparent
+    ),
+    var(--background);
+}
+
+[data-theme="dark"] {
+  --background: #0b0f14;
+  --foreground: #f1f5f9;
+  --surface: #121820;
+  --muted: #1a2330;
+  --muted-fg: #94a3b8;
+  --border: #243044;
+  --bg-gradient: radial-gradient(
+      ellipse 80% 50% at 50% -20%,
+      var(--accent-glow, rgba(52, 211, 153, 0.15)),
+      transparent
+    ),
+    var(--background);
 }
 
 @theme inline {
@@ -12,15 +63,121 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+}
+
+.input-field {
+  width: 100%;
+  border-radius: 0.75rem;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  padding: 0.625rem 0.875rem;
+  font-size: 0.875rem;
+  outline: none;
+  transition: box-shadow 0.15s, border-color 0.15s;
+}
+
+.input-field:focus {
+  border-color: var(--accent-focus, #34d399);
+  box-shadow: 0 0 0 3px var(--accent-focus-ring, rgba(52, 211, 153, 0.25));
+}
+
+.btn-primary {
+  border-radius: 0.75rem;
+  background: linear-gradient(
+    135deg,
+    var(--accent-gradient-from, #a7f3d0),
+    var(--accent-gradient-to, #34d399)
+  );
+  padding: 0.75rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: white;
+  transition: opacity 0.15s, transform 0.1s;
+}
+
+.btn-primary:hover:not(:disabled) {
+  opacity: 0.95;
+}
+
+.btn-primary:disabled {
+  opacity: 0.6;
+}
+
+.btn-secondary {
+  border-radius: 0.75rem;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  padding: 0.75rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  transition: background 0.15s;
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background: var(--muted);
+}
+
+.card {
+  border-radius: 1.25rem;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  padding: 1.25rem;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+}
+
+[data-theme="dark"] .card {
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.brand-icon {
+  background: linear-gradient(
+    to bottom right,
+    var(--accent-gradient-from),
+    var(--accent-gradient-to)
+  );
+  box-shadow: 0 10px 15px -3px var(--accent-shadow);
+}
+
+.text-accent-link {
+  color: var(--accent-link);
+  font-weight: 500;
+}
+
+.text-accent-label {
+  color: var(--accent-label);
+}
+
+.stat-card-caption {
+  color: var(--muted-fg);
+}
+
+[data-theme="dark"] .stat-card .stat-card-caption {
+  color: #ffffff;
+}
+
+.stat-card {
+  border-color: color-mix(in srgb, var(--accent-gradient-to) 40%, var(--border));
+  background: color-mix(in srgb, var(--accent-gradient-from) 70%, var(--surface));
+}
+
+[data-theme="dark"] .stat-card {
+  border-color: color-mix(in srgb, var(--accent-gradient-to) 55%, var(--border));
+  background: color-mix(in srgb, var(--accent-gradient-to) 38%, var(--surface));
+}
+
+.text-stat-eaten {
+  color: var(--accent-eaten-text);
+}
+
+.text-stat-burned {
+  color: var(--accent-burned-text);
+}
+
+.history-day-active {
+  background: var(--accent-active-bg);
+  color: var(--accent-active-text);
 }

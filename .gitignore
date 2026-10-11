@@ -32,6 +32,11 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+!.env.example
+
+# local user data
+/data/db.json
+/data/google-oauth.json
 
 # vercel
 .vercel

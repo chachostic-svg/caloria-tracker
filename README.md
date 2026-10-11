@@ -1,36 +1,34 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Caloria Tracker
 
-## Getting Started
+Веб-приложение на **Next.js (JavaScript)** для учёта съеденных и сожжённых калорий: регистрация, дневник питания, история по дням и круговая диаграмма долей калорий.
 
-First, run the development server:
+## Запуск
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Откройте [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## Возможности
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- Регистрация и вход (данные пользователей в `data/db.json`)
+- Добавление еды: своё название или подсказки из списка, категория и приём пищи
+- Учёт сожжённых калорий (активность)
+- Сводка за сегодня: съедено, сожжено, баланс
+- Pie chart — процент и ккал по каждому блюду за день
+- Страница **История** с просмотром прошлых дней
 
-## Learn More
+## Переменные окружения
 
-To learn more about Next.js, take a look at the following resources:
+Скопируйте `.env.example` в `.env.local` и заполните:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- `AUTH_SECRET` — секрет для сессий
+- `NEXT_PUBLIC_GOOGLE_CLIENT_ID` и `GOOGLE_CLIENT_ID` — один и тот же Client ID из [Google Cloud Console](https://console.cloud.google.com/apis/credentials) (тип **Web application**, в **Authorized JavaScript origins** добавьте `http://localhost:3000`)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+После изменения `.env.local` перезапустите `npm run dev`.
 
-## Deploy on Vercel
+## Вход через Google
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+На страницах входа и регистрации — кнопка Google. Новый пользователь создаётся автоматически; если email уже есть (регистрация по паролю), аккаунты связываются.
