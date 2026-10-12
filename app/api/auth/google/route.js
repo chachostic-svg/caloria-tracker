@@ -27,7 +27,7 @@ export async function POST(request) {
       );
     }
 
-    const user = upsertUserFromGoogle({
+    const user = await upsertUserFromGoogle({
       googleId: profile.googleId,
       email: profile.email,
       name: profile.name,

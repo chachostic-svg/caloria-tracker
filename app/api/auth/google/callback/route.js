@@ -42,7 +42,7 @@ export async function GET(request) {
       return NextResponse.redirect(new URL("/login?error=email_not_verified", request.url));
     }
 
-    const user = upsertUserFromGoogle({
+    const user = await upsertUserFromGoogle({
       googleId: payload.sub,
       email: payload.email,
       name: payload.name || payload.email.split("@")[0],

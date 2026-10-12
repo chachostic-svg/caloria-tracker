@@ -16,7 +16,7 @@ export async function GET(request) {
   }
   const { searchParams } = new URL(request.url);
   const date = searchParams.get("date") || todayKey();
-  const meals = getMealsForUser(userId, date);
+  const meals = await getMealsForUser(userId, date);
   return NextResponse.json({ meals });
 }
 
@@ -39,7 +39,7 @@ export async function POST(request) {
     );
   }
 
-  const meal = addMeal(userId, {
+  const meal = await addMeal(userId, {
     name,
     category,
     mealType,

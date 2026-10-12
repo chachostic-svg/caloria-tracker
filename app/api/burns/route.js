@@ -10,7 +10,7 @@ export async function GET(request) {
   }
   const { searchParams } = new URL(request.url);
   const date = searchParams.get("date") || todayKey();
-  const burns = getBurnsForUser(userId, date);
+  const burns = await getBurnsForUser(userId, date);
   return NextResponse.json({ burns });
 }
 
@@ -31,7 +31,7 @@ export async function POST(request) {
     );
   }
 
-  const burn = addBurn(userId, {
+  const burn = await addBurn(userId, {
     activity,
     calories: Math.round(calories),
     date,

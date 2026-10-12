@@ -8,7 +8,7 @@ export async function POST(request) {
     const email = String(body.email || "").trim();
     const password = String(body.password || "");
 
-    const user = findUserByEmail(email);
+    const user = await findUserByEmail(email);
     if (!user?.passwordHash) {
       return NextResponse.json(
         {

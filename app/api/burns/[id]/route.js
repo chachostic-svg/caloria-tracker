@@ -8,7 +8,7 @@ export async function DELETE(_request, { params }) {
     return NextResponse.json({ error: "Не авторизован" }, { status: 401 });
   }
   const { id } = await params;
-  const ok = deleteBurn(userId, id);
+  const ok = await deleteBurn(userId, id);
   if (!ok) {
     return NextResponse.json({ error: "Запись не найдена" }, { status: 404 });
   }

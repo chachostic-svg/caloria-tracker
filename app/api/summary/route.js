@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { getSessionUserId } from "@/lib/auth";
-import { getDaySummary, getHistoryDates } from "@/lib/db";
+import { getDaySummary } from "@/lib/db";
 import { todayKey } from "@/lib/dates";
 
 export async function GET(request) {
@@ -10,7 +10,7 @@ export async function GET(request) {
   }
   const { searchParams } = new URL(request.url);
   const date = searchParams.get("date") || todayKey();
-  const summary = getDaySummary(userId, date);
+  const summary = await getDaySummary(userId, date);
 
   const chartData = summary.meals.map((m) => ({
     name: m.name,

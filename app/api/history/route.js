@@ -7,16 +7,18 @@ export async function GET() {
   if (!userId) {
     return NextResponse.json({ error: "Не авторизован" }, { status: 401 });
   }
-  const dates = getHistoryDates(userId);
-  const days = dates.map((date) => {
-    const s = getDaySummary(userId, date);
-    return {
-      date,
-      eaten: s.eaten,
-      burned: s.burned,
-      balance: s.balance,
-      mealCount: s.meals.length,
-    };
-  });
+  const dates = await getHistoryDates(userId);
+  const days = await Promise.all(
+    dates.map(async (date) => {
+      const s = await getDaySummary(userId, date);
+      return {
+        date,
+        eaten: s.eaten,
+        burned: s.burned,
+        balance: s.balance,
+        mealCount: s.meals.length,
+      };
+    })
+  );
   return NextResponse.json({ days });
 }

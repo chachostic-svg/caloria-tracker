@@ -8,7 +8,7 @@ export const instant = false;
 export default async function DashboardPage() {
   const userId = await getSessionUserId();
   if (!userId) redirect("/login");
-  const user = findUserById(userId);
+  const user = await findUserById(userId);
   if (!user) redirect("/login");
 
   return (

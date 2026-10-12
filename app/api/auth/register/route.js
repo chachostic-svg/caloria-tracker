@@ -16,7 +16,7 @@ export async function POST(request) {
       );
     }
 
-    if (findUserByEmail(email)) {
+    if (await findUserByEmail(email)) {
       return NextResponse.json(
         { error: "Пользователь с таким email уже существует" },
         { status: 409 }
@@ -24,7 +24,7 @@ export async function POST(request) {
     }
 
     const passwordHash = await hashPassword(password);
-    const user = createUser({ email, name, passwordHash });
+    const user = await createUser({ email, name, passwordHash });
     await createSession(user.id);
 
     return NextResponse.json({
